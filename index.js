@@ -6,14 +6,22 @@ var colors = require('colors')
 
 const TRYMODULE_PATH = path.resolve((process.env.HOME || process.env.USERPROFILE), '.trymodule')
 
+const logGreen = (msg) => {
+  console.log(colors.green(msg))
+}
+
 var package_name = process.argv[2]
 
-if (package_name == "-clear"){
-  exec("rm -r ~/.trymodule/node_modules", function (err, stdout, stderr){
-    console.log(err)
+if (package_name === '--clear'){
+  exec('rm -r ' + TRYMODULE_PATH + '/node_modules', function (err, stdout, stderr){
+    if (!err){
+      logGreen('Cache successfully cleared!')
+      process.exit(0)
+    }
+    else{
+      console.log(err);
+    }
   });
-  console.log(colors.green("Cache successfully cleared!"))
-  process.exit(0)
 }
 
 if (package_name === undefined) {
@@ -48,10 +56,6 @@ const loadPackage = (pkg) => {
       })
     }
   })
-}
-
-const logGreen = (msg) => {
-  console.log(colors.green(msg))
 }
 
 loadPackage(package_name).then((loadedPackage) => {
