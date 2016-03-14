@@ -7,6 +7,15 @@ var colors = require('colors')
 const TRYMODULE_PATH = path.resolve((process.env.HOME || process.env.USERPROFILE), '.trymodule')
 
 var package_name = process.argv[2]
+
+if (package_name == "-clear"){
+  exec("rm -r ~/.trymodule/node_modules", function (err, stdout, stderr){
+    console.log(err)
+  });
+  console.log(colors.green("Cache successfully cleared!"))
+  process.exit(0)
+}
+
 if (package_name === undefined) {
   throw new Error('You need to provide package name as first argument')
 }
