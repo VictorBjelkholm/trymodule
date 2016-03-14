@@ -27,7 +27,7 @@ const loadPackage = (pkg) => {
       console.log(`Couldn't find '${pkg}', gonna download it now`)
       npmi({name: pkg, path: TRYMODULE_PATH}, function (err, result) {
         if (err) {
-          console.log(err.message)
+          console.error(err.message)
           if (err.code === npmi.LOAD_ERR) {
             throw new Error('npm load error')
           }
