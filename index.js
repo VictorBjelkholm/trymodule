@@ -53,7 +53,8 @@ const loadPackage = (pkg) => {
             throw new Error('npm install error')
           }
         }
-        fs.symlink(result.pop()[0].split('@')[0], packageLocation(name), (err) => {
+        var realName = result.pop()[0].split('@')[0] // this is the name of the dir where the package is installed
+        fs.symlink(realName, packageLocation(name), (err) => {
           const loadedPackage = require(packageLocation(name))
           resolve({name: name, package: loadedPackage})
         })
