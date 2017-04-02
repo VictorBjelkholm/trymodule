@@ -16,7 +16,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "npmi": "^1.0.1",
-    "repl.history": "^0.1.3"
+    "repl.history": "^0.1.4"
   },
   "devDependencies": {
     "standard": "^8.6.0"
