@@ -8,6 +8,7 @@ var replHistory = require('repl.history')
 var vm = require('vm')
 var exec = require('child_process').exec
 var loadPackages = require('./index')
+var isPromise = require('is-promise')
 
 const TRYMODULE_PATH = process.env.TRYMODULE_PATH || path.resolve((os.homedir()), '.trymodule')
 const TRYMODULE_HISTORY_PATH = process.env.TRYMODULE_HISTORY_PATH || path.resolve(TRYMODULE_PATH, 'repl_history')
@@ -74,7 +75,7 @@ if (hasFlag('--clear')) {
           var result = script.runInContext(replServer.context)
           // Some libraries use non-native Promise implementations
           // (ie lib$es6$promise$promise$$Promise)
-          if (result instanceof Promise || (typeof result === 'object' && typeof result.then === 'function')) {
+          if (isPromise(result)) {
             console.log('Returned a Promise. waiting for result...')
             result.then(function (val) {
               callback(null, val)
