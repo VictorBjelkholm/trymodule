@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "colors": "^1.1.2",
+    "is-promise": "^2.1.0",
     "npmi": "^1.0.1",
     "repl.history": "^0.1.3"
   },
