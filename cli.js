@@ -88,7 +88,28 @@ if (hasFlag('--clear')) {
         }
       })
       replHistory(replServer, TRYMODULE_HISTORY_PATH)
-      replServer.context = Object.assign(replServer.context, contextPackages)
+      Object.keys(contextPackages).forEach(as => {
+        var pkg = contextPackages[as]
+        // special-case assignment to _ so that it returns
+        // the required package (e.g. lodash) rather than the
+        // value of the last expression
+        if (as === '_') {
+          Object.defineProperty(replServer.context, as, {
+            configurable: true,
+            enumerable: false,
+            get: function () { return pkg },
+            // allow (temporary) assignment to _:
+            //
+            //     > _ = 42
+            //     42
+            //     > _.each
+            //     [Function: forEach]
+            set: function (val) { return val }
+          })
+        } else {
+          replServer.context[as] = pkg
+        }
+      })
     }
   })
 }

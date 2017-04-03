@@ -18,7 +18,7 @@ Downloads the module colors if needed, and starts a nodejs REPL with colors load
 
 Same as above but with many packages in one go!
 
-`trymodule colors=c lodash=l`
+`trymodule colors=c lodash=_`
 
 Assign packages to custom variable names.
 
